@@ -44,15 +44,25 @@ public class Application_CreateData {
 			Credential credential = new Credential();
 			credential.setPassword("kevinspassword");
 			credential.setUsername("kmb385");
-			credential.setUser(user);
 			
-			session.save(credential);
+			
+			credential.setUser(user);
+			user.setCredential(credential);
 			
 			//Saving the Object to DB
-			//session.save();
-						
+			session.save(credential);
+				
+            //<-----------------  one way
+			Credential dbCreditial = session.get(Credential.class, user.getCredential().getCredentialId());
+			System.out.println(dbCreditial.getPassword());
+			
+			//------------------> other way
+			User dbUser = (User) session.get(User.class, credential.getUser().getUserId());
+			System.out.println(dbUser.getFirstName());
+			
 			// commit transaction
 			session.getTransaction().commit();
+			
 		}
 		finally {
 			
@@ -63,3 +73,28 @@ public class Application_CreateData {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

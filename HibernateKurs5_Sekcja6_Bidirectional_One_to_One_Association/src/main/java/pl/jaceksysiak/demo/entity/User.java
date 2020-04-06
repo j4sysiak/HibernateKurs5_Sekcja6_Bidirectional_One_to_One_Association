@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
@@ -19,6 +20,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	private Long userId;
+	
+	@OneToOne(mappedBy="user")
+	private Credential credential;
 
 	@Column(name = "FIRST_NAME")
 	private String firstName;
@@ -151,4 +155,23 @@ public class User {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+
+	public Credential getCredential() {
+		return credential;
+	}
+
+	public void setCredential(Credential credential) {
+		this.credential = credential;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", credential=" + credential + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", birthDate=" + birthDate + ", emailAddress=" + emailAddress + ", lastUpdatedDate="
+				+ lastUpdatedDate + ", lastUpdatedBy=" + lastUpdatedBy + ", createdDate=" + createdDate + ", createdBy="
+				+ createdBy + ", age=" + age + "]";
+	}
+	
+	
+	
 }
